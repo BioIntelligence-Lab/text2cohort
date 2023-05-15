@@ -2,11 +2,15 @@
 
 This work presents Text2Cohort - a new toolkit that will revolutionize how researchers can discover cohorts, interact, and access cancer imaging data hosted on the NCI Imaging Data Commons (IDC) with natural language. With Text2Cohort, you can easily extract information or discover cohorts without having to use complicated bigquery scripts. Simply ask a query like "Download all male brain MRIs for patients under the age of 25 across all relevant IDC collections” and Text2Cohort will handle the rest! Here is an example:
 
-![The Text2Cohort toolkit on an example natural language user input. Text2Cohort first transforms the user input into a query, uses the generated query to query the BigQuery table, and returns the response back to the user.](./assets/example.png)
+<p align="center">
+<img src="./assets/example.png" width="600">
+</p>
 
 ## Text2Cohort Framework
 
-![ Illustration of the Text2Cohort toolkit.](./assets/text2cohort.png)
+<p align="center">
+<img src="./assets/text2cohort.png" width="600">
+</p>
 
 ## Results
 
