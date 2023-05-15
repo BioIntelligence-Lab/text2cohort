@@ -1,33 +1,18 @@
 # Text2Cohort
-This work presents Text2Cohort - a revolutionary new toolkit that allows users to interact with the imaging data commons (IDC) using natural language! With Text2Cohort, you can easily extract information or discover cohorts without having to use complicated bigquery scripts. Simply ask a query like “download all male brain MRIs for patients under the age of 25 across all relevant IDC collections” and Text2Cohort will handle the rest! Here is an example:
 
-<p align="center">
-<img src="./assets/Text2Cohort_Figure0_Example.png" width="600">
-</p>
+This work presents Text2Cohort - a new toolkit that will revolutionize how researchers can discover cohorts, interact, and access cancer imaging data hosted on the NCI Imaging Data Commons (IDC) with natural language. With Text2Cohort, you can easily extract information or discover cohorts without having to use complicated bigquery scripts. Simply ask a query like "Download all male brain MRIs for patients under the age of 25 across all relevant IDC collections” and Text2Cohort will handle the rest! Here is an example:
+
+![The Text2Cohort toolkit on an example natural language user input. Text2Cohort first transforms the user input into a query, uses the generated query to query the BigQuery table, and returns the response back to the user.](./assets/example.png)
 
 ## Text2Cohort Framework
 
-<p align="center">
-<img src="./assets/Text2Cohort_Figure1.png" width="600">
-</p>
+![ Illustration of the Text2Cohort toolkit.](./assets/text2cohort.png)
 
 ## Results
-<!-- <p align="center">
-<img src="./assets/Table2_CD_Queries.png" width="600">
-</p> -->
 
-| | **Natural Language User Input** | **Text2Cohort Generated Query** |
-| :- | :- | :- |
-| 1 | How many different body parts and modalities are hosted on IDC? | SELECT COUNT(DISTINCT BodyPartExamined) as num_body_parts, COUNT(DISTINCT Modality) as num_modalities FROM bigquery-public-data.idc_current.dicom_all |
-| 2 | How many patients are on IDC? | SELECT COUNT(DISTINCT PatientID) AS num_patients FROM \`bigquery-public-data.idc_current.dicom_all\` |
-| 3 | How many male brain MRIs are hosted on IDC where the patient is older than 25 and acquired after 2005? | SELECT COUNT(\*) as num_of_scans FROM \`bigquery-public-data.idc_current.dicom_all\` WHERE Modality = 'MR' AND BodyPartExamined = 'BRAIN' AND PatientSex = 'M' AND CAST(REGEXP_EXTRACT(PatientAge, r'\\d+') AS INT64) > 25 AND CAST(EXTRACT(YEAR FROM StudyDate) AS INT64) > 2005 |
-| 4 | For the upenn_gbm collection, how many male and female patients? | SELECT PatientSex, COUNT(DISTINCT PatientID) FROM bigquery-public-data.idc_current.dicom_all WHERE collection_id = 'upenn_gbm' GROUP BY PatientSex |
-| 5  | For the upenn_gbm collection, how many patients under the age of 25 years, between 25 and 50, and greater than 50 years? | SELECT CASE WHEN CAST(REGEXP_REPLACE(PatientAge, r'[^0-9]', '') AS INT64) < 25 THEN 'under_25' WHEN CAST(REGEXP_REPLACE(PatientAge, r'[^0-9]', '') AS INT64) >= 25 AND CAST(REGEXP_REPLACE(PatientAge, r'[^0-9]', '') AS INT64) <=50 THEN '25_to_50' WHEN CAST(REGEXP_REPLACE(PatientAge, r'[^0-9]', '') AS INT64) > 50 THEN 'over_50' ELSE 'unknown_age' END AS age_group, COUNT(DISTINCT PatientID) AS num_patients FROM \`bigquery-public-data.idc_current.dicom_all\` WHERE collection_id='upenn_gbm' GROUP BY age_group |
-| 6 | List all collection with at least 500 patients | SELECT collection_id, COUNT(DISTINCT PatientID) AS NumPatients FROM \`bigquery-public-data.idc_current.dicom_all\` GROUP BY collection_id HAVING NumPatients >= 500 |
-| 7 | List all the collections with at least 100000 images | SELECT collection_id, COUNT(\*) AS num_images FROM \`bigquery-public-data.idc_current.dicom_all\` GROUP BY collection_id HAVING COUNT(\*) >= 100000 |
-| 8 | List the collections with both PET and CT | SELECT DISTINCT collection_id FROM \`bigquery-public-data.idc_current.dicom_all\` WHERE modality IN ("CT", "PT") GROUP BY collection_id HAVING COUNT(DISTINCT modality) = 2 |
-| 9  | For each collection on IDC, count the body parts, modalities, and series descriptions | SELECT DISTINCT collection_id, COUNT(DISTINCT SeriesDescription) AS NumSeries, COUNT(DISTINCT BodyPartExamined) AS NumBodyParts, COUNT(DISTINCT Modality) AS NumModalities FROM \`bigquery-public-data.idc_current.dicom_all\` GROUP BY collection_id |
-| 10 | For the upenn_gbm collection, download only male patient data for patients between 25 and 50 years of age | SELECT \* FROM \`bigquery-public-data.idc_current.dicom_all\` WHERE collection_id = 'upenn_gbm' AND PatientSex = 'M' AND PatientAge LIKE '%Y' AND CAST(REGEXP_REPLACE(PatientAge, "[^\\\\d]", "") AS INT64) BETWEEN 25 AND 50 |
+![Text2Cohort generated queries on an example set of 10 natural language user inputs, ranging from information extraction to cohort discovery.](./assets/correct_queries.png)
+
+![Text2Cohort generated queries that failed to generate a correct response, corresponding to the natural language user input. Expert corrected generated queries are provided. Errors are highlighted in red, and corrections highlighted in blue.](./assets/incorrect_queries.png)
 
 ## Usage
 We have shared a jupyter notebook to help anyone get started with using text2cohort. Add your OpenAI API key and get started with natural language queries. Here is an example query that can be run using Text2Cohort
@@ -41,5 +26,11 @@ This will return the result of the query as a pandas dataframe.
 To cite this work:
 
 ```text
-
+@article{kulkarni2023text,
+  title={Text2Cohort: Democratizing the NCI Imaging Data Commons with Natural Language Cohort Discovery},
+  author={Kulkarni, Pranav and Kanhere, Adway and Yi, Paul H and Parekh, Vishwa S},
+  journal={arXiv preprint arXiv:2305.07637},
+  year={2023},
+  month={May}
+}
 ```
