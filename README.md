@@ -10,6 +10,8 @@ In this work, we present Text2Cohort - a new toolkit that will revolutionize how
 <img src="./assets/example.png" width="600">
 </p>
 
+You can read our paper on Text2Cohort [here](https://arxiv.org/abs/2305.07637)!
+
 ### Citation
 
 To cite this work, please use this bibtex citation:
