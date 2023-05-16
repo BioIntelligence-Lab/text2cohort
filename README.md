@@ -46,6 +46,10 @@ We have shared a [Python notebook](./text2cohort.ipynb) with the Text2Cohort imp
 df = text2cohort("download all male brain MRIs for patients under the age of 25 across all relevant IDC collections")
 ```
 
+### Rate Limits
+
+Due to rate limits, Text2Cohort may fail to run. Before running Text2Cohort, set the `openai_rpm` variable to your current rate limit. This will force the toolkit to sleep before executing the next API request. Please refer to [OpenAI Rate Limits](https://platform.openai.com/docs/guides/rate-limits/overview) for more information.
+
 ## Dataset Access
 
 The complete list of 50 natural language user inputs curated for this work, along with their Text2Cohort generated queries and responses is publicly available on this repository [here](./data/). The dataset is available as a Python pickle file containing a dictionary mapping each natural language user input to its corresponding generated query and response. 
