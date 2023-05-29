@@ -54,7 +54,7 @@ Due to rate limits, Text2Cohort may fail to run. Before running Text2Cohort, set
 
 ## Dataset Access
 
-The complete list of 50 natural language user inputs curated for this work, along with their Text2Cohort generated queries and responses is publicly available on this repository [here](./data/). The dataset is available as a Python pickle file containing a dictionary mapping each natural language user input to its corresponding generated query and response. 
+The complete list of 50 natural language user inputs curated for this work, along with their Text2Cohort generated queries is publicly available to view in the supplementary material of our paper [here](https://arxiv.org/abs/2305.07637) and the csv version is available on this repository [here](./data/T2C_UM2ii_Text-Query.csv). The dataset is available as a Python pickle file containing a dictionary mapping each natural language user input to a list containing its corresponding generated query and response [here](https://drive.google.com/file/d/1BQHuuQNW1l2HAoD6spLNCjI80c6_GHX_/view). Please note that the pickle file for query #41 is omitted from the list due to it’s large file size (~131 GB). We request users to run the query directly in BigQuery if they want to see the output. 
 
 ## Disclaimer
 
